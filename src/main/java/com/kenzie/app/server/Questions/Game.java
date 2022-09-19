@@ -4,13 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Category {
+public class Game {
     @JsonIgnoreProperties("canon")
     private boolean canon;
-    @JsonIgnoreProperties("title")
-    private String title;
-    @JsonProperty("id")
-    private int id;
+    @JsonIgnoreProperties("aired")
+    private String aired;
 
     public boolean getCanon() {
         return canon;
@@ -20,19 +18,11 @@ public class Category {
         this.canon = canon;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAired() {
+        return aired;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setAired(String aired) {
+        this.aired = aired;
     }
 }

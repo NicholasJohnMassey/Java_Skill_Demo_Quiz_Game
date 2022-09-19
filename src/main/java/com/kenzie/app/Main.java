@@ -1,9 +1,13 @@
 package com.kenzie.app;
 // import necessary libraries
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.app.server.CustomHttpClient;
-import com.kenzie.app.server.Questions.Clues;
-import com.kenzie.app.server.Questions.QuestionDTO;
+import com.kenzie.app.server.Questions.QuestionsDTO;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class Main {
@@ -21,8 +25,6 @@ public class Main {
     final static String URL = "https://jservice.kenzie.academy/api/clues";
 
     private static ArrayList<Integer> usedClues = new ArrayList<>();
-    private ArrayList<String> usedAnswers = new ArrayList<>();
-    private ArrayList<String> correctAnswers = new ArrayList<>();
 
     private static String playerAnswer = " ";
     private static String correctAnswer = " ";
@@ -40,6 +42,46 @@ public class Main {
 
         String httpResponseStr = CustomHttpClient.sendGET(URL);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        TypeReference<List<QuestionsDTO>> typeReferenceListQuestionsDTO = new TypeReference<>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+
+            @Override
+            public int compareTo(TypeReference<List<QuestionsDTO>> o) {
+                return super.compareTo(o);
+            }
+
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                return super.equals(obj);
+            }
+
+            @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return super.clone();
+            }
+
+            @Override
+            public String toString() {
+                return super.toString();
+            }
+        };
+
+        try {
+            List<QuestionsDTO> question = (List<QuestionsDTO>) objectMapper.readValue(httpResponseStr, QuestionsDTO.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
         int rndNumber_to100 = random.nextInt(100);
 
         while (questionsAsked < MAXIMUM_QUESTIONS) {
@@ -55,11 +97,11 @@ public class Main {
             System.out.println("And your category is:" + "\"");
 
             //The error happens in this line and the two subsequent lines like it.
-            System.out.println(QuestionDTO.getClues().get((rndNumber_to100)).getCategory().getTitle() + "\"");
+            System.out.println(QuestionsDTO.getClues().get((rndNumber_to100)).getCategory().getTitle() + "\"");
 
             System.out.println("Your question is:" + "\"");
 
-            System.out.println(QuestionDTO.getClues().get((rndNumber_to100)).getQuestion() + "\"");
+            System.out.println(QuestionsDTO.getClues().get((rndNumber_to100)).getQuestion() + "\"");
 
             scanner = new Scanner(System.in);
 
@@ -67,7 +109,7 @@ public class Main {
 
             playerAnswer = playerInput ;
 
-            correctAnswer = QuestionDTO.getClues().get((rndNumber_to100)).getAnswer();
+            correctAnswer = QuestionsDTO.getClues().get((rndNumber_to100)).getAnswer();
 
             if (playerAnswer.equalsIgnoreCase(correctAnswer)){
                 System.out.println("That is correct!");

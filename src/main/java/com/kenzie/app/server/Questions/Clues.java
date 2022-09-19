@@ -1,26 +1,31 @@
 package com.kenzie.app.server.Questions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Clues {
-    @JsonProperty("canon")
+    @JsonIgnoreProperties("canon")
     private boolean canon;
+    @JsonIgnoreProperties("game")
+    private Game game;
     @JsonProperty("category")
     private Category category;
-    @JsonProperty("invalidCount")
+    @JsonIgnoreProperties("invalidCount")
     private int invalidcount;
-    @JsonProperty("gameId")
+    @JsonIgnoreProperties("gameId")
     private int gameid;
-    @JsonProperty("categoryId")
-    private int categoryid;
-    @JsonProperty("value")
+    @JsonIgnore(value = true)
+    private int categoryId;
+    @JsonIgnoreProperties("value")
     private int value;
     @JsonProperty("question")
-    private static String question;
+    private String question;
     @JsonProperty("answer")
     private String answer;
     @JsonProperty("id")
-    private static int id;
+    private int id;
 
     public boolean getCanon() {
         return canon;
@@ -30,6 +35,13 @@ public class Clues {
         this.canon = canon;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public Category getCategory() {
         return category;
@@ -56,11 +68,11 @@ public class Clues {
     }
 
     public int getCategoryid() {
-        return categoryid;
+        return categoryId;
     }
 
     public void setCategoryid(int categoryid) {
-        this.categoryid = categoryid;
+        this.categoryId = categoryId;
     }
 
     public int getValue() {
@@ -71,7 +83,7 @@ public class Clues {
         this.value = value;
     }
 
-    public static String getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
@@ -87,7 +99,7 @@ public class Clues {
         this.answer = answer;
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
