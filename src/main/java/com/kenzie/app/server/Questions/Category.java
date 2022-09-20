@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Category {
     @JsonIgnoreProperties("canon")
     private boolean canon;
-    @JsonIgnoreProperties("title")
+    @JsonProperty("title")
     private String title;
     @JsonProperty("id")
     private int id;
