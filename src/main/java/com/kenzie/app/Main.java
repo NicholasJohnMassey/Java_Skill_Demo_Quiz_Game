@@ -33,7 +33,7 @@ public class Main {
     private static Random random = new Random();
     private static Scanner scanner;
 
-    private static final int MAXIMUM_QUESTIONS = 10;
+    private static final int MAXIMUM_QUESTIONS = 5;
     private static int questionsAsked = 0;
 
 
@@ -55,12 +55,12 @@ public class Main {
         }
 
 
-        int rndNumber_to100 = random.nextInt(100);
+        int rndNumber_to100 = random.nextInt(5);
 
         while (questionsAsked < MAXIMUM_QUESTIONS) {
 
             while (usedClues.contains(rndNumber_to100)) {
-                rndNumber_to100 = random.nextInt(100);
+                rndNumber_to100 = random.nextInt(5);
             }
 
             if (!usedClues.contains(rndNumber_to100)) {
